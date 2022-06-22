@@ -2,14 +2,14 @@
   <div class="todo-item">
     <input type="checkbox" v-model="isDone" />
     <span class="content">{{ todos.content }}</span>
-    <button class="delete-btn">删除</button>
+    <button class="delete-btn" @click="deleteTodo">删除</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "MyItem",
-  props: ["todos", "checkTodos"],
+  props: ["todos", "checkTodos", "deleteTodos"],
   computed: {
     isDone: {
       get() {
@@ -18,6 +18,11 @@ export default {
       set() {
         this.checkTodos(this.todos.id);
       },
+    },
+  },
+  methods: {
+    deleteTodo() {
+      this.deleteTodos(this.todos.id);
     },
   },
 };

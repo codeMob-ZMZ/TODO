@@ -2,8 +2,16 @@
   <div id="app">
     <div class="wrap">
       <MyHeader :addTodos="addTodos" />
-      <MyList :todoList="todoList" :checkTodos="checkTodos" />
-      <MyFooter />
+      <MyList
+        :todoList="todoList"
+        :checkTodos="checkTodos"
+        :deleteTodos="deleteTodos"
+      />
+      <MyFooter
+        :todoList="todoList"
+        :checkAllTodos="checkAllTodos"
+        :deleteDoneTodos="deleteDoneTodos"
+      />
     </div>
   </div>
 </template>
@@ -42,8 +50,29 @@ export default {
       this.todoList.unshift(todoObj);
     },
     // 勾选对应事项
-    checkTodos(id) {
-      console.log(id);
+    checkTodos(todoId) {
+      this.todoList.forEach((item) => {
+        if (item.id === todoId) item.done = !item.done;
+      });
+    },
+    // 删除对应事项
+    deleteTodos(todoId) {
+      console.log(todoId);
+      this.todoList = this.todoList.filter((item) => {
+        return item.id != todoId;
+      });
+    },
+    // 全选事项
+    checkAllTodos(isAll) {
+      this.todoList.forEach((item) => {
+        item.done = isAll;
+      });
+    },
+    // 清除已完成事项
+    deleteDoneTodos() {
+      this.todoList = this.todoList.filter((item) => {
+        return !item.done;
+      });
     },
   },
 };

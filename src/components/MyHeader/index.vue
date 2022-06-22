@@ -1,5 +1,6 @@
 <template>
   <div class="todo-header">
+    <h2>备忘录</h2>
     <input type="text" @keyup.enter="addTodo" />
   </div>
 </template>
@@ -28,6 +29,9 @@ export default {
 .todo-header {
   width: 700px;
   margin: 10px auto 0;
+}
+.todo-header h2 {
+  text-align: center;
 }
 .todo-header input {
   width: 700px;
