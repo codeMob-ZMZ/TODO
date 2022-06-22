@@ -25,23 +25,7 @@ export default {
   components: { MyHeader, MyList, MyFooter },
   data() {
     return {
-      todoList: [
-        {
-          id: "001",
-          done: false,
-          content: "学习",
-        },
-        {
-          id: "002",
-          done: false,
-          content: "吃饭",
-        },
-        {
-          id: "003",
-          done: true,
-          content: "玩耍",
-        },
-      ],
+      todoList: JSON.parse(localStorage.getItem("todos")) || [],
     };
   },
   methods: {
@@ -73,6 +57,14 @@ export default {
       this.todoList = this.todoList.filter((item) => {
         return !item.done;
       });
+    },
+  },
+  watch: {
+    todoList: {
+      deep: true,
+      handler(newValue) {
+        localStorage.setItem("todos", JSON.stringify(newValue));
+      },
     },
   },
 };
