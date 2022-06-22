@@ -9,7 +9,6 @@
 import { nanoid } from "nanoid";
 export default {
   name: "MyHeader",
-  props: ["addTodos"],
   methods: {
     addTodo(e) {
       if (!e.target.value.trim()) return alert("请输入备忘事项！");
@@ -18,7 +17,7 @@ export default {
         done: false,
         content: e.target.value,
       };
-      this.addTodos(add);
+      this.$emit("addTodos", add);
       e.target.value = "";
     },
   },

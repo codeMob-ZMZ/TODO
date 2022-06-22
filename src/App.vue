@@ -1,16 +1,12 @@
 <template>
   <div id="app">
     <div class="wrap">
-      <MyHeader :addTodos="addTodos" />
-      <MyList
-        :todoList="todoList"
-        :checkTodos="checkTodos"
-        :deleteTodos="deleteTodos"
-      />
+      <MyHeader @addTodos="addTodos" />
+      <MyList :todoList="todoList" />
       <MyFooter
         :todoList="todoList"
-        :checkAllTodos="checkAllTodos"
-        :deleteDoneTodos="deleteDoneTodos"
+        @checkAllTodos="checkAllTodos"
+        @deleteDoneTodos="deleteDoneTodos"
       />
     </div>
   </div>
@@ -41,7 +37,6 @@ export default {
     },
     // 删除对应事项
     deleteTodos(todoId) {
-      console.log(todoId);
       this.todoList = this.todoList.filter((item) => {
         return item.id != todoId;
       });
@@ -66,6 +61,14 @@ export default {
         localStorage.setItem("todos", JSON.stringify(newValue));
       },
     },
+  },
+  mounted() {
+    this.$bus.$on("checkTodos", this.checkTodos);
+    this.$bus.$on("deleteTodos", this.deleteTodos);
+  },
+  beforeDestroy() {
+    this.$bus.$off("checkTodos");
+    this.$bus.$off("deleteTodos");
   },
 };
 </script>

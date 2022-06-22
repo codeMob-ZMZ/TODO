@@ -9,7 +9,7 @@
 <script>
 export default {
   name: "MyFooter",
-  props: ["todoList", "checkAllTodos", "deleteDoneTodos"],
+  props: ["todoList"],
   computed: {
     doneTotal() {
       let i = 0;
@@ -30,11 +30,11 @@ export default {
   },
   methods: {
     checkAll(e) {
-      this.checkAllTodos(e.target.checked);
+      this.$emit("checkAllTodos", e.target.checked);
     },
-    deleteDoneTodo(){
-      this.deleteDoneTodos();
-    }
+    deleteDoneTodo() {
+      this.$emit("deleteDoneTodos");
+    },
   },
 };
 </script>

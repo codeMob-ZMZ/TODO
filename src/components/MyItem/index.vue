@@ -9,20 +9,22 @@
 <script>
 export default {
   name: "MyItem",
-  props: ["todos", "checkTodos", "deleteTodos"],
+  props: ["todos"],
   computed: {
     isDone: {
       get() {
         return this.todos.done;
       },
       set() {
-        this.checkTodos(this.todos.id);
+        this.$bus.$emit("checkTodos", this.todos.id);
       },
     },
   },
   methods: {
     deleteTodo() {
-      this.deleteTodos(this.todos.id);
+      if (confirm("确定删除吗？")) {
+        this.$bus.$emit("deleteTodos", this.todos.id);
+      }
     },
   },
 };
