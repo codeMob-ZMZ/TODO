@@ -53,6 +53,12 @@ export default {
         return !item.done;
       });
     },
+    // 编辑
+    editTodos(value, index) {
+      this.todoList.forEach((item) => {
+        if (item.id == index) item.content = value;
+      });
+    },
   },
   watch: {
     todoList: {
@@ -65,10 +71,12 @@ export default {
   mounted() {
     this.$bus.$on("checkTodos", this.checkTodos);
     this.$bus.$on("deleteTodos", this.deleteTodos);
+    this.$bus.$on("editTodos", this.editTodos);
   },
   beforeDestroy() {
     this.$bus.$off("checkTodos");
     this.$bus.$off("deleteTodos");
+    this.$bus.$off("editTodos");
   },
 };
 </script>
