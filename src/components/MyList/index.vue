@@ -1,6 +1,12 @@
 <template>
   <div class="todo-list">
-    <MyItem v-for="todos in todoList" :key="todos.id" :todos="todos" />
+    <transition-group
+      appear
+      enter-active-class="animate__animated animate__bounceInRight"
+      leave-active-class="animate__animated animate__backOutLeft"
+    >
+      <MyItem v-for="todos in todoList" :key="todos.id" :todos="todos" />
+    </transition-group>
   </div>
 </template>
 
