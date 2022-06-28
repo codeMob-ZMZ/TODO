@@ -13,7 +13,7 @@ export default {
   components: { MyFileItem },
   data() {
     return {
-      hasFiles: JSON.parse(localStorage.getItem("fileTodoList")).length || false,
+      hasFiles: false,
     };
   },
   props: ["fileList"],
@@ -24,10 +24,31 @@ export default {
       }
     },
   },
+  computed: {
+    isHasFiles: {
+      get() {
+        if (localStorage.getItem("fileTodoList") == null) {
+          return false;
+        } else {
+          return true;
+        }
+      },
+      set(value) {
+        this.hasFiles = value;
+      },
+    },
+  },
+  created() {
+    if (localStorage.getItem("fileTodoList") == null) {
+      this.hasFiles = false;
+    } else {
+      this.hasFiles = true;
+    }
+  },
   mounted() {
     this.$bus.$on("hasFilesDo", () => {
       this.hasFiles = true;
-      console.log(this.hasFiles)
+      console.log(this.hasFiles);
     });
   },
   beforeDestroy() {
