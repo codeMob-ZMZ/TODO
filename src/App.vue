@@ -8,6 +8,7 @@
         @checkAllTodos="checkAllTodos"
         @deleteDoneTodos="deleteDoneTodos"
       />
+      <MyFile :fileList="fileList" />
     </div>
   </div>
 </template>
@@ -16,12 +17,14 @@
 import MyHeader from "./components/MyHeader/index.vue";
 import MyList from "./components/MyList/index.vue";
 import MyFooter from "./components/MyFooter/index.vue";
+import MyFile from "./components/MyFile/index.vue";
 export default {
   name: "App",
-  components: { MyHeader, MyList, MyFooter },
+  components: { MyHeader, MyList, MyFooter, MyFile },
   data() {
     return {
       todoList: JSON.parse(localStorage.getItem("todos")) || [],
+      fileList: JSON.parse(localStorage.getItem("fileTodoList")) || [],
     };
   },
   methods: {
@@ -59,6 +62,17 @@ export default {
         if (item.id == index) item.content = value;
       });
     },
+    // 归档
+    fileTodos(index) {
+      this.todoList.forEach((item) => {
+        if (item.id == index) {
+          this.fileList.unshift(item);
+        }
+      });
+      this.todoList = this.todoList.filter((item) => {
+        return item.id != index;
+      });
+    },
   },
   watch: {
     todoList: {
@@ -67,25 +81,35 @@ export default {
         localStorage.setItem("todos", JSON.stringify(newValue));
       },
     },
+    fileList: {
+      deep: true,
+      handler(newValue) {
+        localStorage.setItem("fileTodoList", JSON.stringify(newValue));
+        console.log(newValue)
+      },
+    },
   },
   mounted() {
     this.$bus.$on("checkTodos", this.checkTodos);
     this.$bus.$on("deleteTodos", this.deleteTodos);
     this.$bus.$on("editTodos", this.editTodos);
+    this.$bus.$on("fileTodos", this.fileTodos);
   },
   beforeDestroy() {
     this.$bus.$off("checkTodos");
     this.$bus.$off("deleteTodos");
     this.$bus.$off("editTodos");
+    this.$bus.$off("fileTodos");
   },
 };
 </script>
 
 <style>
 .wrap {
-  width: 750px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  width: 100%;
+  border: 0.01rem solid #ccc;
+  border-radius: 0.05rem;
+  margin: 0.5rem auto 0;
 }
 
 button {

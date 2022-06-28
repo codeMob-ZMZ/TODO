@@ -41,32 +41,32 @@ export default {
 
 <style scoped>
 .todo-footer {
-  width: 700px;
-  height: 50px;
-  margin: 10px auto 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  width: 7rem;
+  height: 0.6rem;
+  margin: 0.1rem auto 0.1rem;
+  border: 0.01rem solid #ccc;
+  border-radius: 0.05rem;
   display: flex;
   align-items: center;
-  padding: 0 10px;
+  padding: 0 0.1rem;
   box-sizing: border-box;
   position: relative;
 }
 
 .todo-footer .total-box {
-  font-size: 18px;
-  margin-left: 2px;
+  font-size: 0.2rem;
+  margin-left: 0.02rem;
 }
 .todo-footer .delete-all {
-  width: 120px;
-  height: 25px;
+  width: 2.2rem;
+  height: 0.4rem;
   background-color: #e35942;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.05rem;
   position: absolute;
   top: 50%;
-  right: 10px;
+  right: 0.1rem;
   transform: translateY(-50%);
 }
 </style>

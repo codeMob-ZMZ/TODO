@@ -23,9 +23,9 @@ export default {
 
 <style scoped>
 .todo-list {
-  width: 700px;
-  margin: 10px auto 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  width: 7rem;
+  margin: 0.1rem auto 0;
+  border: 0.01rem solid #ccc;
+  border-radius: 0.05rem;
 }
 </style>
